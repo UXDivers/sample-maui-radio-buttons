@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RadioButtonSample"
+    x:Class="RadioButtonSample.CustomRadioButton"
+    >
+    <RadioButton.Resources>
+        <local:BooleanColorConverter
+            x:Key="BooleanColorConverter"
+            TrueColor="DeepSkyBlue"
+            FalseColor="White"
+            />
+        
+        <local:BooleanColorConverter
+            x:Key="BooleanColorConverter2"
+            TrueColor="DeepSkyBlue"
+            FalseColor="SkyBlue"
+        />
+    </RadioButton.Resources>
+    
+    <RadioButton.ControlTemplate>
+        <ControlTemplate>
+            <Grid
+                RowDefinitions="60"
+                BindingContext="{ TemplateBinding BindingContext }"
+                x:DataType="local:Subscription"
+                >
+                    <!-- StrokeThickness="2" -->
+                <Border
+                    Stroke="{ TemplateBinding IsChecked, Converter={ StaticResource BooleanColorConverter } }"
+                    HeightRequest="50"
+                    VerticalOptions="End"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White"
+                    >
+                    <Grid
+                        Padding="10,0,20,0"
+                        ColumnDefinitions="50, Auto, *, Auto"
+                        >
+                        <!-- CHECK -->
+                        <Grid
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            >
+                            <Border
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                StrokeShape="RoundRectangle 18"
+                                StrokeThickness="1"
+                                BackgroundColor="Transparent"
+                                Stroke="{ TemplateBinding IsChecked, Converter={ StaticResource BooleanColorConverter2 } }"
+                            >
+                                <BoxView
+                                    IsVisible="{ TemplateBinding IsChecked }"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HeightRequest="16"
+                                    WidthRequest="16"
+                                    CornerRadius="8"
+                                    BackgroundColor="Transparent"
+                                    Color="DeepSkyBlue"
+                                />
+                            </Border>
+                        </Grid>
+                        
+                        <!-- DURATION -->
+                        <Label
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            FontSize="14"
+                            Text="{ Binding Months, StringFormat='{0} Month(s)' }"
+                            />
+                        
+                        <!-- NAME -->
+                        <Label
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            TextColor="DarkBlue"
+                            Margin="10,0"
+                            Text="{ Binding Name }"
+                            />
+                        
+                        <!-- PRICE -->
+                        <Label
+                            Grid.Column="3"
+                            VerticalOptions="Center"
+                            FontSize="14"
+                            Text="{ Binding Price, StringFormat='${0:#.##}' }"
+                            />
+                    </Grid>   
+                </Border>
+                
+                <Border
+                    IsVisible="{ TemplateBinding IsChecked }"
+                    Margin="0,0,5,0"
+                    HeightRequest="20"
+                    WidthRequest="60"
+                    StrokeShape="RoundRectangle 5"
+                    VerticalOptions="Start"
+                    HorizontalOptions="End"
+                    BackgroundColor="DeepSkyBlue"
+                    StrokeThickness="0"
+                    Padding="0"
+                    >
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        TextColor="White"
+                        FontSize="11"
+                        Text="{ Binding Discount, StringFormat='Save {0}%' }"
+                        />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </RadioButton.ControlTemplate>
+</RadioButton>
